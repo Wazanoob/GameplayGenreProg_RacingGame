@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,11 @@ public class CarController : MonoBehaviour
     [SerializeField] private WheelCollider m_frontRightWheelCollider;
     [SerializeField] private WheelCollider m_rearLeftWheelCollider;
     [SerializeField] private WheelCollider m_rearRightWheelCollider;
+
+    [SerializeField] private Transform m_frontLeftWheelTransform;
+    [SerializeField] private Transform m_frontRightWheelTransform;
+    [SerializeField] private Transform m_rearLeftWheelTransform;
+    [SerializeField] private Transform m_rearRightWheelTransform;
 
     [Header("Steering")]
     [SerializeField] private float m_maxSteerAngle;
@@ -73,7 +79,24 @@ public class CarController : MonoBehaviour
 
     void UpdateWheel()
     {
+        //Anim the wheels
+        UpdateSingleWheel(m_frontLeftWheelCollider, m_frontLeftWheelTransform);
+        UpdateSingleWheel(m_frontRightWheelCollider, m_frontRightWheelTransform);
+        UpdateSingleWheel(m_rearLeftWheelCollider, m_rearLeftWheelTransform);
+        UpdateSingleWheel(m_rearRightWheelCollider, m_rearRightWheelTransform);
+    }
 
+    private void UpdateSingleWheel(WheelCollider wheelCollider, Transform wheelTransform)
+    {
+        Vector3 position;
+        Quaternion rotation;
+
+        //Get the transform of the wheelCollider
+        wheelCollider.GetWorldPose(out position, out rotation);
+
+        //Apply it to the wheelTransform
+        wheelTransform.rotation = rotation;
+        wheelTransform.position = position;
     }
 
     void ApplyBreaking()

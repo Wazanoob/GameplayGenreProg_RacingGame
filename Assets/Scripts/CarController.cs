@@ -27,7 +27,6 @@ public class CarController : MonoBehaviour
 
     [Header("Steering")]
     [SerializeField] private float m_maxSteerAngle;
-    private float m_steerAngle;
     private float m_currentSteerAngle;
 
     // Start is called before the first frame update
@@ -43,6 +42,7 @@ public class CarController : MonoBehaviour
         HandleMotor();
         HandleSteering();
         UpdateWheel();
+
     }
 
     void GetInput()
@@ -62,11 +62,12 @@ public class CarController : MonoBehaviour
         if (m_isBreaking)
         {
             m_currentBreakForce = m_breakForce;
-            ApplyBreaking();
         }else
         {
             m_currentBreakForce = 0.0f;
         }
+
+        ApplyBreaking(m_currentBreakForce);
     }
 
     void HandleSteering()
@@ -99,11 +100,11 @@ public class CarController : MonoBehaviour
         wheelTransform.position = position;
     }
 
-    void ApplyBreaking()
+    void ApplyBreaking(float brakeForceP = 0)
     {
-        m_frontLeftWheelCollider.brakeTorque = m_currentBreakForce;
-        m_frontRightWheelCollider.brakeTorque = m_currentBreakForce;
-        m_rearLeftWheelCollider.brakeTorque = m_currentBreakForce;
-        m_rearRightWheelCollider.brakeTorque = m_currentBreakForce;
+        m_frontLeftWheelCollider.brakeTorque = brakeForceP;
+        m_frontRightWheelCollider.brakeTorque = brakeForceP;
+        m_rearLeftWheelCollider.brakeTorque = brakeForceP;
+        m_rearRightWheelCollider.brakeTorque = brakeForceP;
     }
 }

@@ -942,38 +942,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1031930841, guid: 2fe43a1d7805ba844aa7613b20b9424a, type: 3}
-      propertyPath: m_SuspensionSpring.damper
-      value: 9000
-      objectReference: {fileID: 0}
-    - target: {fileID: 1031930841, guid: 2fe43a1d7805ba844aa7613b20b9424a, type: 3}
-      propertyPath: m_SuspensionSpring.spring
-      value: 90000
-      objectReference: {fileID: 0}
-    - target: {fileID: 1040221407, guid: 2fe43a1d7805ba844aa7613b20b9424a, type: 3}
-      propertyPath: m_SuspensionSpring.damper
-      value: 9000
-      objectReference: {fileID: 0}
-    - target: {fileID: 1040221407, guid: 2fe43a1d7805ba844aa7613b20b9424a, type: 3}
-      propertyPath: m_SuspensionSpring.spring
-      value: 90000
-      objectReference: {fileID: 0}
-    - target: {fileID: 1684508124, guid: 2fe43a1d7805ba844aa7613b20b9424a, type: 3}
-      propertyPath: m_SuspensionSpring.damper
-      value: 9000
-      objectReference: {fileID: 0}
-    - target: {fileID: 1684508124, guid: 2fe43a1d7805ba844aa7613b20b9424a, type: 3}
-      propertyPath: m_SuspensionSpring.spring
-      value: 90000
-      objectReference: {fileID: 0}
-    - target: {fileID: 2045754458, guid: 2fe43a1d7805ba844aa7613b20b9424a, type: 3}
-      propertyPath: m_SuspensionSpring.damper
-      value: 9000
-      objectReference: {fileID: 0}
-    - target: {fileID: 2045754458, guid: 2fe43a1d7805ba844aa7613b20b9424a, type: 3}
-      propertyPath: m_SuspensionSpring.spring
-      value: 90000
-      objectReference: {fileID: 0}
     - target: {fileID: 2631446968726358119, guid: 2fe43a1d7805ba844aa7613b20b9424a, type: 3}
       propertyPath: m_Name
       value: PlayerCar
@@ -1021,10 +989,6 @@ PrefabInstance:
     - target: {fileID: 3444998352868397789, guid: 2fe43a1d7805ba844aa7613b20b9424a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7544781513619600045, guid: 2fe43a1d7805ba844aa7613b20b9424a, type: 3}
-      propertyPath: m_Mass
-      value: 1000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2fe43a1d7805ba844aa7613b20b9424a, type: 3}

@@ -27,12 +27,20 @@ public class CarController : MonoBehaviour
 
     [Header("Steering")]
     [SerializeField] private float m_maxSteerAngle;
+
     private float m_currentSteerAngle;
+    public float CurrentSteerAngle { get { return m_currentSteerAngle; } set { CurrentSteerAngle = m_currentSteerAngle; } }
+
+
+    [SerializeField] private float m_downPressure;
+
+    Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
+        rb.centerOfMass += Vector3.down;
     }
 
     // Update is called once per frame
@@ -42,7 +50,12 @@ public class CarController : MonoBehaviour
         HandleMotor();
         HandleSteering();
         UpdateWheel();
+    }
 
+    private void FixedUpdate()
+    {
+        Vector3 forceToAdd = new Vector3(0, -rb.velocity.magnitude, 0);
+        rb.AddForce(forceToAdd * m_downPressure * Time.fixedDeltaTime);
     }
 
     void GetInput()

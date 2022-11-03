@@ -1,89 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &673912891
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 673912894}
-  - component: {fileID: 673912893}
-  - component: {fileID: 673912892}
-  m_Layer: 0
-  m_Name: Main Camera
-  m_TagString: MainCamera
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &673912894
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 673912891}
-  m_LocalRotation: {x: 0.11632402, y: 0, z: 0, w: 0.9932113}
-  m_LocalPosition: {x: 0, y: 3.97, z: -7}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3444998352868397789}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 13.36, y: 0, z: 0}
---- !u!20 &673912893
-Camera:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 673912891}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 1
-  m_GateFitMode: 2
-  m_FOVAxisMode: 0
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 0
-  orthographic size: 5
-  m_Depth: -1
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
---- !u!81 &673912892
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 673912891}
-  m_Enabled: 1
 --- !u!1 &1031930839
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,19 +47,19 @@ WheelCollider:
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
-  m_Mass: 20
+  m_Mass: 80
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
-    m_ExtremumSlip: 0.4
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.8
-    m_AsymptoteValue: 0.5
+    m_ExtremumSlip: 2
+    m_ExtremumValue: 5
+    m_AsymptoteSlip: 5
+    m_AsymptoteValue: 2
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
+    m_ExtremumSlip: 1
+    m_ExtremumValue: 2.5
+    m_AsymptoteSlip: 2.5
+    m_AsymptoteValue: 1
     m_Stiffness: 1
   m_Enabled: 1
 --- !u!1 &1040221405
@@ -193,19 +109,19 @@ WheelCollider:
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
-  m_Mass: 20
+  m_Mass: 80
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
-    m_ExtremumSlip: 0.4
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.8
-    m_AsymptoteValue: 0.5
+    m_ExtremumSlip: 2
+    m_ExtremumValue: 5
+    m_AsymptoteSlip: 5
+    m_AsymptoteValue: 2
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
+    m_ExtremumSlip: 1
+    m_ExtremumValue: 2.5
+    m_AsymptoteSlip: 2.5
+    m_AsymptoteValue: 1
     m_Stiffness: 1
   m_Enabled: 1
 --- !u!1 &1238808122
@@ -290,19 +206,19 @@ WheelCollider:
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
-  m_Mass: 20
+  m_Mass: 80
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
-    m_ExtremumSlip: 0.4
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.8
-    m_AsymptoteValue: 0.5
+    m_ExtremumSlip: 2
+    m_ExtremumValue: 5
+    m_AsymptoteSlip: 5
+    m_AsymptoteValue: 2
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
+    m_ExtremumSlip: 1
+    m_ExtremumValue: 2.5
+    m_AsymptoteSlip: 2.5
+    m_AsymptoteValue: 1
     m_Stiffness: 1
   m_Enabled: 1
 --- !u!1 &2045754456
@@ -352,19 +268,19 @@ WheelCollider:
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
-  m_Mass: 20
+  m_Mass: 80
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
-    m_ExtremumSlip: 0.4
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.8
-    m_AsymptoteValue: 0.5
+    m_ExtremumSlip: 2
+    m_ExtremumValue: 5
+    m_AsymptoteSlip: 5
+    m_AsymptoteValue: 2
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
+    m_ExtremumSlip: 1
+    m_ExtremumValue: 2.5
+    m_AsymptoteSlip: 2.5
+    m_AsymptoteValue: 1
     m_Stiffness: 1
   m_Enabled: 1
 --- !u!1 &185684687013180114
@@ -651,7 +567,6 @@ Transform:
   - {fileID: 1265662142768758540}
   - {fileID: 7713815784231170826}
   - {fileID: 7101696466060016953}
-  - {fileID: 673912894}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -663,9 +578,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2631446968726358119}
   serializedVersion: 2
-  m_Mass: 1000
+  m_Mass: 1500
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 5
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -696,8 +611,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6221238b8541ed149840ee11528ac1a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_motorForce: 1000
-  m_breakForce: 3000
+  m_motorForce: 9000
+  m_breakForce: 5000
   m_frontLeftWheelCollider: {fileID: 1684508124}
   m_frontRightWheelCollider: {fileID: 1040221407}
   m_rearLeftWheelCollider: {fileID: 2045754458}
@@ -707,6 +622,7 @@ MonoBehaviour:
   m_rearLeftWheelTransform: {fileID: 8571616385677487995}
   m_rearRightWheelTransform: {fileID: 654533313948745816}
   m_maxSteerAngle: 30
+  m_downPressure: 10
 --- !u!1 &3511023197635251203
 GameObject:
   m_ObjectHideFlags: 0

@@ -74,6 +74,7 @@ public class CameraController : MonoBehaviour
         
         m_tilt.eulerAngles = new Vector3(currentTilt, m_tilt.eulerAngles.y, m_tilt.eulerAngles.z);
 
+
         m_camera.transform.position = transform.position + m_tilt.forward * -adjustedDistance;
     }
 

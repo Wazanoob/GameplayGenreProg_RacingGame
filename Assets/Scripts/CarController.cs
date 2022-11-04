@@ -70,14 +70,11 @@ public class CarController : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             //TurboTroll
-            float turboBoost = 10000;
-            m_motorForce = 9000 * turboBoost;
-
             WheelFrictionCurve turboCurve = new WheelFrictionCurve();
-            turboCurve.extremumSlip = 2 * turboBoost;
-            turboCurve.extremumValue = 5 * turboBoost;
-            turboCurve.asymptoteSlip = 5 * turboBoost;
-            turboCurve.asymptoteValue = 2 * turboBoost;
+            turboCurve.extremumSlip = 2;
+            turboCurve.extremumValue = 4;
+            turboCurve.asymptoteSlip = 4;
+            turboCurve.asymptoteValue = 2;
             turboCurve.stiffness = 1;
 
 
@@ -88,14 +85,11 @@ public class CarController : MonoBehaviour
         }
         else
         {
-            m_motorForce = 9000;
-
-            //TurboTroll
             WheelFrictionCurve turboCurve = new WheelFrictionCurve();
-            turboCurve.extremumSlip = 2;
-            turboCurve.extremumValue = 5;
-            turboCurve.asymptoteSlip = 5;
-            turboCurve.asymptoteValue = 2;
+            turboCurve.extremumSlip = 0.6f;
+            turboCurve.extremumValue = 1;
+            turboCurve.asymptoteSlip = 1.2f;
+            turboCurve.asymptoteValue = 0.75f;
             turboCurve.stiffness = 1;
 
             m_frontLeftWheelCollider.forwardFriction = turboCurve;

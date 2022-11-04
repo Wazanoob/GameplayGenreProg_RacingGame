@@ -90,7 +90,6 @@ public class CameraController : MonoBehaviour
             adjustedDistance = DISTANCE;
         }
 
-
         if (collisionDebugg)
         {
             Debug.DrawLine(camRay.origin, camRay.origin + camRay.direction * camDistance, Color.cyan);

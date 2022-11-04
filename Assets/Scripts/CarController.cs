@@ -34,7 +34,7 @@ public class CarController : MonoBehaviour
 
     [SerializeField] private float m_downPressure;
 
-    Rigidbody rb;
+    public Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()

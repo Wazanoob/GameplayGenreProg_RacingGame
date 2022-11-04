@@ -58,22 +58,23 @@ public class CameraController : MonoBehaviour
     void LateUpdate()
     {
         //Follow player
-        Vector3 nextPos = m_player.transform.position + Vector3.up * cameraHeight;
-        transform.position = Vector3.Lerp(transform.position, nextPos, smoothLerp * Time.deltaTime); //Lerp
+        Vector3 nextPosition = m_player.transform.position + Vector3.up * cameraHeight;
+        transform.position = nextPosition;
+        transform.position = Vector3.Lerp(transform.position, nextPosition, Vector3.SqrMagnitude(transform.position - nextPosition) * smoothLerp * Time.deltaTime); //Lerp
+        //Vector3 velocity= m_carController.rb.velocity;
+        //transform.position = Vector3.SmoothDamp(transform.position, nextPosition, ref velocity,  smoothLerp * Time.deltaTime); //Lerp
 
         //Rotate around Player
-        currentPan = m_player.transform.eulerAngles.y + m_carController.CurrentSteerAngle / 3;
+        currentPan = m_player.transform.eulerAngles.y + m_carController.CurrentSteerAngle / 2;
 
-        transform.eulerAngles = new Vector3(transform.eulerAngles.x, currentPan, transform.eulerAngles.z);
+        Vector3 nextRotation = new Vector3(transform.eulerAngles.x, currentPan, transform.eulerAngles.z);
+        //transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, nextRotation, Vector3.Distance(transform.position, nextPosition) *smoothLerp * Time.deltaTime); //Lerp
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(nextRotation), Vector3.SqrMagnitude(transform.position - nextRotation) * smoothLerp * Time.deltaTime);
+        //transform.eulerAngles = new Vector3(transform.eulerAngles.x, currentPan, transform.eulerAngles.z);
+        
         m_tilt.eulerAngles = new Vector3(currentTilt, m_tilt.eulerAngles.y, m_tilt.eulerAngles.z);
 
-        //Vector3 relativePos = m_player.position - transform.position;
-
-        //Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
-        //transform.rotation = Quaternion.Lerp(transform.rotation, rotation, timeCount * speedRotation);
-        //timeCount = timeCount + Time.deltaTime;
-
-        //m_camera.transform.position = transform.position + m_tilt.forward * -adjustedDistance;
+        m_camera.transform.position = transform.position + m_tilt.forward * -adjustedDistance;
     }
 
     void CameraCollisions()

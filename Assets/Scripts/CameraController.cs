@@ -73,7 +73,7 @@ public class CameraController : MonoBehaviour
         //transform.rotation = Quaternion.Lerp(transform.rotation, rotation, timeCount * speedRotation);
         //timeCount = timeCount + Time.deltaTime;
 
-        //m_camera.transform.position = transform.position + m_tilt.forward * -adjustedDistance;
+        m_camera.transform.position = transform.position + m_tilt.forward * -adjustedDistance;
     }
 
     void CameraCollisions()

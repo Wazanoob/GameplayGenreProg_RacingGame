@@ -17,7 +17,7 @@ public class CameraController : MonoBehaviour
     [Range(0, 4)]
     [SerializeField] float cameraSpeed;
     const float DISTANCE = 6;
-    float currentPan, currentTilt = 10;
+    float currentPan, currentTilt = 5;
 
     //Collisions
     [Header("Collisions")]
@@ -31,6 +31,7 @@ public class CameraController : MonoBehaviour
     //SmoothLerp
     float timeCount = 0.0f;
     float speedRotation = 0.8f;
+    public float smoothLerp = 50f;
 
     private void Start()
     {
@@ -57,15 +58,22 @@ public class CameraController : MonoBehaviour
     void LateUpdate()
     {
         //Follow player
-        transform.position = m_player.transform.position + Vector3.up * cameraHeight;
+        Vector3 nextPos = m_player.transform.position + Vector3.up * cameraHeight;
+        transform.position = Vector3.Lerp(transform.position, nextPos, smoothLerp * Time.deltaTime); //Lerp
 
         //Rotate around Player
-        currentPan = m_carController.CurrentSteerAngle / 3;
+        currentPan = m_player.transform.eulerAngles.y + m_carController.CurrentSteerAngle / 3;
 
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, currentPan, transform.eulerAngles.z);
         m_tilt.eulerAngles = new Vector3(currentTilt, m_tilt.eulerAngles.y, m_tilt.eulerAngles.z);
 
-        m_camera.transform.position = transform.position + m_tilt.forward * -adjustedDistance;
+        //Vector3 relativePos = m_player.position - transform.position;
+
+        //Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
+        //transform.rotation = Quaternion.Lerp(transform.rotation, rotation, timeCount * speedRotation);
+        //timeCount = timeCount + Time.deltaTime;
+
+        //m_camera.transform.position = transform.position + m_tilt.forward * -adjustedDistance;
     }
 
     void CameraCollisions()

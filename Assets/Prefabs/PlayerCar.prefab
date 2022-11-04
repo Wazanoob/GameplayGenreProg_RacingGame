@@ -622,9 +622,7 @@ MonoBehaviour:
   m_rearLeftWheelTransform: {fileID: 8571616385677487995}
   m_rearRightWheelTransform: {fileID: 654533313948745816}
   m_maxSteerAngle: 30
-  m_taillight: {fileID: 0}
   m_downPressure: 15000
-  rb: {fileID: 7544781513619600045}
 --- !u!1 &3511023197635251203
 GameObject:
   m_ObjectHideFlags: 0

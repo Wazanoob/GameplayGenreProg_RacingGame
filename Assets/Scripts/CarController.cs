@@ -28,6 +28,10 @@ public class CarController : MonoBehaviour
     [Header("Steering")]
     [SerializeField] private float m_maxSteerAngle;
 
+    [Header("Taillight")]
+    [SerializeField] private Animator m_taillight;
+
+
     private float m_currentSteerAngle;
     public float CurrentSteerAngle { get { return m_currentSteerAngle; } set { CurrentSteerAngle = m_currentSteerAngle; } }
 
@@ -63,6 +67,42 @@ public class CarController : MonoBehaviour
         m_horizontalInput = Input.GetAxis("Horizontal");
         m_verticalInput = Input.GetAxis("Vertical");
 
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            //TurboTroll
+            float turboBoost = 10000;
+            m_motorForce = 9000 * turboBoost;
+
+            WheelFrictionCurve turboCurve = new WheelFrictionCurve();
+            turboCurve.extremumSlip = 2 * turboBoost;
+            turboCurve.extremumValue = 5 * turboBoost;
+            turboCurve.asymptoteSlip = 5 * turboBoost;
+            turboCurve.asymptoteValue = 2 * turboBoost;
+            turboCurve.stiffness = 1;
+
+            m_frontLeftWheelCollider.forwardFriction = turboCurve;
+            m_frontRightWheelCollider.forwardFriction = turboCurve;
+            m_rearLeftWheelCollider.forwardFriction = turboCurve;
+            m_rearLeftWheelCollider.forwardFriction = turboCurve;
+        }
+        else
+        {
+            m_motorForce = 9000;
+
+            //TurboTroll
+            WheelFrictionCurve turboCurve = new WheelFrictionCurve();
+            turboCurve.extremumSlip = 2;
+            turboCurve.extremumValue = 5;
+            turboCurve.asymptoteSlip = 5;
+            turboCurve.asymptoteValue = 2;
+            turboCurve.stiffness = 1;
+
+            m_frontLeftWheelCollider.forwardFriction = turboCurve;
+            m_frontRightWheelCollider.forwardFriction = turboCurve;
+            m_rearLeftWheelCollider.forwardFriction = turboCurve;
+            m_rearLeftWheelCollider.forwardFriction = turboCurve;
+        }
+
         m_isBreaking = Input.GetKey(KeyCode.Space);
     }
 
@@ -74,11 +114,18 @@ public class CarController : MonoBehaviour
 
         if (m_isBreaking)
         {
+            m_taillight.SetBool("isBreaking", true);
             m_currentBreakForce = m_breakForce;
-        }else
+        }else if(m_verticalInput != 0)
         {
+            m_taillight.SetBool("isBreaking", false);
             m_currentBreakForce = 0.0f;
+        }else if (m_verticalInput == 0)
+        {
+            m_taillight.SetBool("isBreaking", false);
+            m_currentBreakForce = m_breakForce / 10;
         }
+
 
         ApplyBreaking(m_currentBreakForce);
     }

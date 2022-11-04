@@ -80,6 +80,7 @@ public class CarController : MonoBehaviour
             turboCurve.asymptoteValue = 2 * turboBoost;
             turboCurve.stiffness = 1;
 
+
             m_frontLeftWheelCollider.forwardFriction = turboCurve;
             m_frontRightWheelCollider.forwardFriction = turboCurve;
             m_rearLeftWheelCollider.forwardFriction = turboCurve;

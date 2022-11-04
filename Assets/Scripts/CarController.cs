@@ -28,6 +28,10 @@ public class CarController : MonoBehaviour
     [Header("Steering")]
     [SerializeField] private float m_maxSteerAngle;
 
+    [Header("Taillight")]
+    [SerializeField] private Material m_taillight;
+
+
     private float m_currentSteerAngle;
     public float CurrentSteerAngle { get { return m_currentSteerAngle; } set { CurrentSteerAngle = m_currentSteerAngle; } }
 
@@ -75,12 +79,14 @@ public class CarController : MonoBehaviour
         if (m_isBreaking)
         {
             m_currentBreakForce = m_breakForce;
-        }else
+        }else if(m_verticalInput != 0)
         {
             m_currentBreakForce = 0.0f;
+        }else if (m_verticalInput == 0)
+        {
+            m_currentBreakForce = m_breakForce / 10;
         }
-
-        ApplyBreaking(m_currentBreakForce);
+            ApplyBreaking(m_currentBreakForce);
     }
 
     void HandleSteering()

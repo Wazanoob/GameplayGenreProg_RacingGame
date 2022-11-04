@@ -123,11 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!54 &483403954 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 7544781513619600045, guid: 2fe43a1d7805ba844aa7613b20b9424a, type: 3}
-  m_PrefabInstance: {fileID: 5490087796818082508}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &514466474 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8277158053328706933, guid: b037318b95ba3bb4e94bbcbdc5716798, type: 3}
@@ -409,10 +404,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerCar
       objectReference: {fileID: 0}
-    - target: {fileID: 2631446968726358119, guid: 2fe43a1d7805ba844aa7613b20b9424a, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 3444998352868397789, guid: 2fe43a1d7805ba844aa7613b20b9424a, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -456,18 +447,6 @@ PrefabInstance:
     - target: {fileID: 3444998352868397789, guid: 2fe43a1d7805ba844aa7613b20b9424a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7544781513619600046, guid: 2fe43a1d7805ba844aa7613b20b9424a, type: 3}
-      propertyPath: rb
-      value: 
-      objectReference: {fileID: 483403954}
-    - target: {fileID: 7544781513619600046, guid: 2fe43a1d7805ba844aa7613b20b9424a, type: 3}
-      propertyPath: m_breakForce
-      value: 2000
-      objectReference: {fileID: 0}
-    - target: {fileID: 7544781513619600046, guid: 2fe43a1d7805ba844aa7613b20b9424a, type: 3}
-      propertyPath: m_downPressure
-      value: 15000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -523,10 +502,6 @@ PrefabInstance:
     - target: {fileID: 8941184358702894680, guid: 33fe6a3189046684ab45f16688fc33ec, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8941184358702894681, guid: 33fe6a3189046684ab45f16688fc33ec, type: 3}
-      propertyPath: smoothLerp
-      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8941184358702894682, guid: 33fe6a3189046684ab45f16688fc33ec, type: 3}
       propertyPath: m_Name

@@ -18,6 +18,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] float cameraSpeed;
     const float DISTANCE = 6;
     float currentPan, currentTilt = 5;
+    const float tilt = 5;
 
     //Collisions
     [Header("Collisions")]
@@ -29,9 +30,8 @@ public class CameraController : MonoBehaviour
     RaycastHit camRayHit;
 
     //SmoothLerp
-    float timeCount = 0.0f;
-    float speedRotation = 0.8f;
     public float smoothLerp = 50f;
+    public float smoothLerpRotation = 25f;
 
     private void Start()
     {
@@ -44,7 +44,6 @@ public class CameraController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         transform.position = m_player.position + Vector3.up * cameraHeight;
-        //transform.rotation = m_player.rotation;
 
         m_tilt.eulerAngles = new Vector3(currentTilt, transform.eulerAngles.y, transform.eulerAngles.z);
         m_camera.transform.position += m_tilt.forward * -DISTANCE;
@@ -64,11 +63,12 @@ public class CameraController : MonoBehaviour
 
         //Rotate around Player
         currentPan = m_player.transform.eulerAngles.y + m_carController.CurrentSteerAngle / 2;
+        currentTilt = tilt + m_carController.CurrentSteerAngle / 3;
 
         Vector3 nextRotation = new Vector3(transform.eulerAngles.x, currentPan, transform.eulerAngles.z);
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(nextRotation), Vector3.SqrMagnitude(transform.position - nextRotation) * smoothLerp * Time.deltaTime);
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(nextRotation), Vector3.SqrMagnitude(transform.position - nextRotation) * (smoothLerpRotation) * Time.deltaTime);
         
-        m_tilt.eulerAngles = new Vector3(currentTilt, m_tilt.eulerAngles.y, m_tilt.eulerAngles.z);
+        m_tilt.eulerAngles = new Vector3(tilt, m_tilt.eulerAngles.y, -currentTilt);
 
         m_camera.transform.position = transform.position + m_tilt.forward * -adjustedDistance;
     }

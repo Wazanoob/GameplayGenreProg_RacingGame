@@ -15,21 +15,21 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 1
-  m_FogColor: {r: 0.33617684, g: 0.3773585, b: 0.30793878, a: 1}
+  m_FogColor: {r: 0.33617684, g: 0.3773585, b: 0.30793878, a: 0.50980395}
   m_FogMode: 3
   m_FogDensity: 0.01
-  m_LinearFogStart: 0
-  m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_LinearFogStart: 50
+  m_LinearFogEnd: 200
+  m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 0
-  m_SubtractiveShadowColor: {r: 0.5849056, g: 0.31176573, b: 0.31176573, a: 1}
+  m_SubtractiveShadowColor: {r: 1, g: 1, b: 1, a: 1}
   m_SkyboxMaterial: {fileID: 0}
-  m_HaloStrength: 0.431
+  m_HaloStrength: 0.406
   m_FlareStrength: 1
-  m_FlareFadeSpeed: 3
+  m_FlareFadeSpeed: 1
   m_HaloTexture: {fileID: 0}
   m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
   m_DefaultReflectionMode: 1
@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
+  m_Sun: {fileID: 1669619814}
   m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
@@ -380,7 +380,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!65 &8850892
 BoxCollider:
@@ -8020,15 +8020,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8941184358702894680, guid: 33fe6a3189046684ab45f16688fc33ec, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -19.82
       objectReference: {fileID: 0}
     - target: {fileID: 8941184358702894680, guid: 33fe6a3189046684ab45f16688fc33ec, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 111.59
       objectReference: {fileID: 0}
     - target: {fileID: 8941184358702894680, guid: 33fe6a3189046684ab45f16688fc33ec, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -10.79
       objectReference: {fileID: 0}
     - target: {fileID: 8941184358702894680, guid: 33fe6a3189046684ab45f16688fc33ec, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8072,15 +8072,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8941184359382212808, guid: 33fe6a3189046684ab45f16688fc33ec, type: 3}
       propertyPath: m_BackGroundColor.b
-      value: 0.114325166
+      value: 0.23460306
       objectReference: {fileID: 0}
     - target: {fileID: 8941184359382212808, guid: 33fe6a3189046684ab45f16688fc33ec, type: 3}
       propertyPath: m_BackGroundColor.g
-      value: 0.1509434
+      value: 0.3018868
       objectReference: {fileID: 0}
     - target: {fileID: 8941184359382212808, guid: 33fe6a3189046684ab45f16688fc33ec, type: 3}
       propertyPath: m_BackGroundColor.r
-      value: 0.10323959
+      value: 0.21217516
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -12118,6 +12118,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: e7bb0a5d082c0f8409fb92f36e437436, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 59fccabe911fd8d4d8e9184f4e8056ba, type: 2}
     - target: {fileID: 919132149155446097, guid: e7bb0a5d082c0f8409fb92f36e437436, type: 3}
       propertyPath: m_Name
       value: "PH_Panneaux_P\xEFllier (2)"
@@ -12259,20 +12263,20 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 0.0146074295, g: 0.1509434, b: 0, a: 1}
+  m_Intensity: 2.73
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
     m_Bias: 0.05
     m_NormalBias: 0.4
-    m_NearPlane: 0.2
+    m_NearPlane: 0.98
     m_CullingMatrixOverride:
       e00: 1
       e01: 0

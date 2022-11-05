@@ -10,11 +10,17 @@ public class CarController : MonoBehaviour
     private float m_verticalInput;
 
     public Rigidbody rb;
+    public bool gamedStarted = false;
+
+    [Header("Audio Source")]
+    private AudioSource m_audioSource;
+    [SerializeField] private AudioClip m_nitroClip;
+    [SerializeField] private AudioClip m_stopNitroClip;
 
     [Header("Wheels control")]
     [SerializeField] private float m_downPressure;
     [SerializeField] private float m_motorForce;
-    [SerializeField] private float m_breakForce;
+    [SerializeField] private float m_brakeForce;
     private float m_currentBreakForce;
 
     [SerializeField] private WheelCollider m_frontLeftWheelCollider;
@@ -27,7 +33,7 @@ public class CarController : MonoBehaviour
     [SerializeField] private Transform m_rearLeftWheelTransform;
     [SerializeField] private Transform m_rearRightWheelTransform;
 
-    private bool m_isBreaking;
+    private bool m_isBraking;
 
     [Header("Steering")]
     [SerializeField] private float m_maxSteerAngle;
@@ -41,11 +47,14 @@ public class CarController : MonoBehaviour
 
     [Header("Nitro")]
     [SerializeField] private GameObject m_VFXNitro;
+    [SerializeField] private GameObject m_VFXSpeed;
     [SerializeField] private float m_consumeNitroSpeed = 0.2f;
     [SerializeField] private float m_refillNitroSpeed = 0.025f;
-    private const float COOLDOWNNITRO = 5.0f;
+    private const float COOLDOWNNITRO = 3.0f;
     private float m_cooldown;
     [HideInInspector] public float nitroAmount = 1.0f;
+    private bool m_onlyOnceStop = true;
+    private bool m_onlyOnceNitro = false;
 
     // Start is called before the first frame update
     void Start()
@@ -53,13 +62,20 @@ public class CarController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.centerOfMass += Vector3.down;
 
+        m_audioSource = GetComponent<AudioSource>();
+
+        m_VFXNitro.SetActive(false);
+        m_VFXSpeed.SetActive(false);
         m_cooldown = COOLDOWNNITRO;
     }
 
     // Update is called once per frame
     void Update()
     {
-        GetInput();
+        if (gamedStarted)
+        {
+            GetInput();
+        }
         HandleMotor();
         HandleSteering();
         UpdateWheel();
@@ -76,11 +92,22 @@ public class CarController : MonoBehaviour
         m_horizontalInput = Input.GetAxis("Horizontal");
         m_verticalInput = Input.GetAxis("Vertical");
 
-        if (Input.GetKey(KeyCode.LeftShift) && nitroAmount > 0 && m_cooldown > COOLDOWNNITRO)
+        if (Input.GetKey(KeyCode.LeftShift) && nitroAmount > 0)
         {
             if (!m_VFXNitro.activeInHierarchy)
             {
                 m_VFXNitro.SetActive(true);
+                m_VFXSpeed.SetActive(true);
+            }
+
+            if (!m_onlyOnceNitro)
+            {
+                m_audioSource.Stop();
+                m_audioSource.clip = m_nitroClip;
+                m_audioSource.Play();
+
+                m_onlyOnceStop = false;
+                m_onlyOnceNitro = true;
             }
 
             //TurboTroll
@@ -90,7 +117,6 @@ public class CarController : MonoBehaviour
             turboCurve.asymptoteSlip = 4;
             turboCurve.asymptoteValue = 2;
             turboCurve.stiffness = 1;
-
 
             m_frontLeftWheelCollider.forwardFriction = turboCurve;
             m_frontRightWheelCollider.forwardFriction = turboCurve;
@@ -106,9 +132,27 @@ public class CarController : MonoBehaviour
             {
                 m_cooldown = 0;
                 m_VFXNitro.SetActive(false);
+                m_VFXSpeed.SetActive(false);
             }
 
             m_cooldown += Time.deltaTime;
+
+            if (m_cooldown >= COOLDOWNNITRO)
+            {
+                nitroAmount += m_refillNitroSpeed * Time.deltaTime;
+                nitroAmount = Mathf.Clamp(nitroAmount, 0, 1);
+            }
+
+
+            if (m_audioSource.isPlaying && !m_onlyOnceStop)
+            {
+                m_audioSource.Stop();
+                m_audioSource.clip = m_stopNitroClip;
+                m_audioSource.Play();
+
+                m_onlyOnceNitro = false;
+                m_onlyOnceStop = true;
+            }
 
             WheelFrictionCurve turboCurve = new WheelFrictionCurve();
             turboCurve.extremumSlip = 0.6f;
@@ -121,12 +165,9 @@ public class CarController : MonoBehaviour
             m_frontRightWheelCollider.forwardFriction = turboCurve;
             m_rearLeftWheelCollider.forwardFriction = turboCurve;
             m_rearLeftWheelCollider.forwardFriction = turboCurve;
-
-            nitroAmount += m_refillNitroSpeed * Time.deltaTime;
-            nitroAmount = Mathf.Clamp(nitroAmount, 0, 1);
         }
 
-        m_isBreaking = Input.GetKey(KeyCode.Space);
+        m_isBraking = Input.GetKey(KeyCode.Space);
     }
 
     void HandleMotor()
@@ -135,10 +176,10 @@ public class CarController : MonoBehaviour
         m_frontLeftWheelCollider.motorTorque = m_verticalInput * m_motorForce;
         m_frontRightWheelCollider.motorTorque = m_verticalInput * m_motorForce;
 
-        if (m_isBreaking)
+        if (m_isBraking)
         {
             m_taillight.SetBool("isBreaking", true);
-            m_currentBreakForce = m_breakForce;
+            m_currentBreakForce = m_brakeForce;
         }else if(m_verticalInput != 0)
         {
             m_taillight.SetBool("isBreaking", false);
@@ -146,7 +187,7 @@ public class CarController : MonoBehaviour
         }else if (m_verticalInput == 0)
         {
             m_taillight.SetBool("isBreaking", false);
-            m_currentBreakForce = m_breakForce / 10;
+            m_currentBreakForce = m_brakeForce / 10;
         }
 
 

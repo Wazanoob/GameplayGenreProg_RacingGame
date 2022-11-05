@@ -5,12 +5,14 @@ using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
+    //Inputs
     private float m_horizontalInput;
     private float m_verticalInput;
 
-    private bool m_isBreaking;
+    public Rigidbody rb;
 
     [Header("Wheels control")]
+    [SerializeField] private float m_downPressure;
     [SerializeField] private float m_motorForce;
     [SerializeField] private float m_breakForce;
     private float m_currentBreakForce;
@@ -25,6 +27,8 @@ public class CarController : MonoBehaviour
     [SerializeField] private Transform m_rearLeftWheelTransform;
     [SerializeField] private Transform m_rearRightWheelTransform;
 
+    private bool m_isBreaking;
+
     [Header("Steering")]
     [SerializeField] private float m_maxSteerAngle;
 
@@ -35,16 +39,21 @@ public class CarController : MonoBehaviour
     private float m_currentSteerAngle;
     public float CurrentSteerAngle { get { return m_currentSteerAngle; } set { CurrentSteerAngle = m_currentSteerAngle; } }
 
-
-    [SerializeField] private float m_downPressure;
-
-    public Rigidbody rb;
+    [Header("Nitro")]
+    [SerializeField] private GameObject m_VFXNitro;
+    [SerializeField] private float m_consumeNitroSpeed = 0.2f;
+    [SerializeField] private float m_refillNitroSpeed = 0.025f;
+    private const float COOLDOWNNITRO = 5.0f;
+    private float m_cooldown;
+    [HideInInspector] public float nitroAmount = 1.0f;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.centerOfMass += Vector3.down;
+
+        m_cooldown = COOLDOWNNITRO;
     }
 
     // Update is called once per frame
@@ -67,8 +76,13 @@ public class CarController : MonoBehaviour
         m_horizontalInput = Input.GetAxis("Horizontal");
         m_verticalInput = Input.GetAxis("Vertical");
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift) && nitroAmount > 0 && m_cooldown > COOLDOWNNITRO)
         {
+            if (!m_VFXNitro.activeInHierarchy)
+            {
+                m_VFXNitro.SetActive(true);
+            }
+
             //TurboTroll
             WheelFrictionCurve turboCurve = new WheelFrictionCurve();
             turboCurve.extremumSlip = 2;
@@ -82,9 +96,20 @@ public class CarController : MonoBehaviour
             m_frontRightWheelCollider.forwardFriction = turboCurve;
             m_rearLeftWheelCollider.forwardFriction = turboCurve;
             m_rearLeftWheelCollider.forwardFriction = turboCurve;
+
+            nitroAmount -= m_consumeNitroSpeed * Time.deltaTime;
+            nitroAmount = Mathf.Clamp(nitroAmount, 0, 1);
         }
         else
         {
+            if (m_VFXNitro.activeInHierarchy)
+            {
+                m_cooldown = 0;
+                m_VFXNitro.SetActive(false);
+            }
+
+            m_cooldown += Time.deltaTime;
+
             WheelFrictionCurve turboCurve = new WheelFrictionCurve();
             turboCurve.extremumSlip = 0.6f;
             turboCurve.extremumValue = 1;
@@ -96,6 +121,9 @@ public class CarController : MonoBehaviour
             m_frontRightWheelCollider.forwardFriction = turboCurve;
             m_rearLeftWheelCollider.forwardFriction = turboCurve;
             m_rearLeftWheelCollider.forwardFriction = turboCurve;
+
+            nitroAmount += m_refillNitroSpeed * Time.deltaTime;
+            nitroAmount = Mathf.Clamp(nitroAmount, 0, 1);
         }
 
         m_isBreaking = Input.GetKey(KeyCode.Space);

@@ -237,7 +237,7 @@ MonoBehaviour:
   cameraSpeed: 1
   collisionMask:
     serializedVersion: 2
-    m_Bits: 2147483647
+    m_Bits: 1
   collisionDebugg: 0
   smoothLerp: 40
   smoothLerpRotation: 20

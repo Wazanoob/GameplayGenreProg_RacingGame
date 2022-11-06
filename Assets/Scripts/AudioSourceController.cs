@@ -20,7 +20,7 @@ public class AudioSourceController : MonoBehaviour
         if (!m_cameraSource.isPlaying)
         {
             m_cameraSource.PlayOneShot(m_music);
-            m_cameraSource.volume = 0.8f;
+            m_cameraSource.volume = 0.45f;
         }
     }
 }

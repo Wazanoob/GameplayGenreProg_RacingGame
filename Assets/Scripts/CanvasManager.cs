@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
 
 public class CanvasManager : MonoBehaviour
@@ -8,11 +9,20 @@ public class CanvasManager : MonoBehaviour
     private CarController m_carController;
     [SerializeField] private Image m_nitroFull;
 
-
+    [Header("CountDown")]
     [SerializeField] private Image m_One;
     [SerializeField] private Image m_Two;
     [SerializeField] private Image m_Three;
     [SerializeField] private Image m_Go;
+
+    [Header("CheckPoints")]
+    [SerializeField] private CheckPoints m_checkOne;
+    [SerializeField] private CheckPoints m_checkTwo;
+    [SerializeField] private CheckPoints m_checkThree;
+    [SerializeField] private CheckPoints m_checkEnd;
+
+    [Header("Timer")]
+    [SerializeField] private TextMeshProUGUI m_timerText;
 
     private float m_downSizeWidthOne = 300f;
     private float m_downSizeWidthTwo = 300f;
@@ -26,6 +36,8 @@ public class CanvasManager : MonoBehaviour
     private float downSizeSpeed;
 
     private bool isRaceStarted = false;
+    private bool isRaceFinished = false;
+    private float m_timer = 0;
     private float deltaTime;
 
     // Start is called before the first frame update
@@ -47,12 +59,24 @@ public class CanvasManager : MonoBehaviour
             StartRace();
         }
 
+        if (m_carController.gamedStarted && !isRaceFinished)
+        {
+            m_timer += Time.deltaTime;
+        }
+
+        if (m_checkOne.isTriggered && m_checkTwo.isTriggered && m_checkThree.isTriggered && m_checkEnd.isTriggered)
+        {
+            isRaceFinished = true;
+        }
+
+        m_timerText.text = m_timer.ToString();
+
         m_nitroFull.fillAmount = m_carController.nitroAmount;
     }
 
     void StartRace()
     {
-        if (deltaTime <= 2.0f) 
+        if (deltaTime <= 2.5f) 
         {
             downSizeSpeed = 450 / 2f;
             //Just HardCoding this function cause dont have enough time to do it clean soorrrryyy
@@ -65,7 +89,7 @@ public class CanvasManager : MonoBehaviour
             m_downSizeHeightThree = Mathf.Clamp(m_downSizeHeightThree, 1, m_downSizeHeightThree);
 
             m_Three.rectTransform.sizeDelta = new Vector2(m_downSizeWidthThree, m_downSizeHeightThree);
-        }else if (deltaTime <= 4.0f)
+        }else if (deltaTime <= 4.5f)
         {
             downSizeSpeed = 300 / 2f;
 
@@ -79,7 +103,7 @@ public class CanvasManager : MonoBehaviour
             m_downSizeHeightTwo = Mathf.Clamp(m_downSizeHeightTwo, 1, m_downSizeHeightTwo);
 
             m_Two.rectTransform.sizeDelta = new Vector2(m_downSizeWidthTwo, m_downSizeHeightTwo);
-        }else if (deltaTime <= 6.0f)
+        }else if (deltaTime <= 6.5f)
         {
             m_Three.gameObject.SetActive(false);
             m_Two.gameObject.SetActive(false);
@@ -92,7 +116,7 @@ public class CanvasManager : MonoBehaviour
             m_downSizeHeightOne = Mathf.Clamp(m_downSizeHeightOne, 1, m_downSizeHeightOne);
 
             m_One.rectTransform.sizeDelta = new Vector2(m_downSizeWidthOne, m_downSizeHeightOne);
-        }else if(deltaTime <= 8.0f)
+        }else if(deltaTime <= 8.5f)
         {
             m_carController.gamedStarted = true;
             m_One.gameObject.SetActive(false);

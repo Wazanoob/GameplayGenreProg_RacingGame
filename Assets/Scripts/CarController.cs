@@ -13,9 +13,15 @@ public class CarController : MonoBehaviour
     public bool gamedStarted = false;
 
     [Header("Audio Source")]
-    private AudioSource m_audioSource;
+    private AudioSource m_nitroAudioSource;
+    private Animator m_audioController;
+    [SerializeField] private AudioSource m_motorAudioSource;
     [SerializeField] private AudioClip m_nitroClip;
     [SerializeField] private AudioClip m_stopNitroClip;
+    [SerializeField] private AudioClip m_atStopClip;
+    [SerializeField] private AudioClip m_speedUpClip;
+    [SerializeField] private AudioClip m_startEngineClip;
+    [SerializeField] private AudioClip m_slowDownClip;
 
     [Header("Wheels control")]
     [SerializeField] private float m_downPressure;
@@ -62,7 +68,8 @@ public class CarController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.centerOfMass += Vector3.down;
 
-        m_audioSource = GetComponent<AudioSource>();
+        m_nitroAudioSource = GetComponent<AudioSource>();
+        m_audioController = GetComponent<Animator>();
 
         m_VFXNitro.SetActive(false);
         m_VFXSpeed.SetActive(false);
@@ -102,9 +109,9 @@ public class CarController : MonoBehaviour
 
             if (!m_onlyOnceNitro)
             {
-                m_audioSource.Stop();
-                m_audioSource.clip = m_nitroClip;
-                m_audioSource.Play();
+                m_nitroAudioSource.Stop();
+                m_nitroAudioSource.clip = m_nitroClip;
+                m_nitroAudioSource.Play();
 
                 m_onlyOnceStop = false;
                 m_onlyOnceNitro = true;
@@ -144,11 +151,11 @@ public class CarController : MonoBehaviour
             }
 
 
-            if (m_audioSource.isPlaying && !m_onlyOnceStop)
+            if (m_nitroAudioSource.isPlaying && !m_onlyOnceStop)
             {
-                m_audioSource.Stop();
-                m_audioSource.clip = m_stopNitroClip;
-                m_audioSource.Play();
+                m_nitroAudioSource.Stop();
+                m_nitroAudioSource.clip = m_stopNitroClip;
+                m_nitroAudioSource.Play();
 
                 m_onlyOnceNitro = false;
                 m_onlyOnceStop = true;
@@ -182,10 +189,14 @@ public class CarController : MonoBehaviour
             m_currentBreakForce = m_brakeForce;
         }else if(m_verticalInput != 0)
         {
+            m_audioController.SetBool("SpeedUp", true);
+
             m_taillight.SetBool("isBreaking", false);
             m_currentBreakForce = 0.0f;
         }else if (m_verticalInput == 0)
         {
+            m_audioController.SetBool("SpeedUp", false);
+
             m_taillight.SetBool("isBreaking", false);
             m_currentBreakForce = m_brakeForce / 10;
         }
@@ -230,5 +241,33 @@ public class CarController : MonoBehaviour
         m_frontRightWheelCollider.brakeTorque = brakeForceP;
         m_rearLeftWheelCollider.brakeTorque = brakeForceP;
         m_rearRightWheelCollider.brakeTorque = brakeForceP;
+    }
+
+    public void atStopAudio()
+    {
+        m_motorAudioSource.Stop();
+        m_motorAudioSource.clip = m_atStopClip;
+        m_motorAudioSource.Play();
+    }
+
+    public void startEngineAudio()
+    {
+        m_motorAudioSource.Stop();
+        m_motorAudioSource.clip = m_startEngineClip;
+        m_motorAudioSource.Play();
+    }
+
+    public void slowDownAudio()
+    {
+        m_motorAudioSource.Stop();
+        m_motorAudioSource.clip = m_slowDownClip;
+        m_motorAudioSource.Play();
+    }
+
+    public void speedUpAudio()
+    {
+        m_motorAudioSource.Stop();
+        m_motorAudioSource.clip = m_speedUpClip;
+        m_motorAudioSource.Play();
     }
 }

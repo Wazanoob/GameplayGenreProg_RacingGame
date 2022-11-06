@@ -2716,6 +2716,7 @@ GameObject:
   - component: {fileID: 8699119051345320660}
   - component: {fileID: 858335565530808848}
   - component: {fileID: 1930312713}
+  - component: {fileID: 275458606}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -2811,6 +2812,102 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!82 &275458606
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2347578238180577630}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 49672911ab4721c4296d0043cf17a928, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.4
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 0
+  MinDistance: 1
+  MaxDistance: 10
+  Pan2D: 0
+  rolloffMode: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &2631446968726358119
 GameObject:
   m_ObjectHideFlags: 0
@@ -2824,6 +2921,7 @@ GameObject:
   - component: {fileID: 7544781513619600044}
   - component: {fileID: 7544781513619600046}
   - component: {fileID: 1667628637}
+  - component: {fileID: 1667628638}
   m_Layer: 0
   m_Name: PlayerCar
   m_TagString: Player
@@ -2892,8 +2990,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 7544781513619600045}
+  gamedStarted: 0
+  m_motorAudioSource: {fileID: 275458606}
   m_nitroClip: {fileID: 8300000, guid: db36b2f84772a0b4a8205ccf23526f5d, type: 3}
   m_stopNitroClip: {fileID: 8300000, guid: b1b7dab6fc30c4f4090fdbbcac4db978, type: 3}
+  m_atStopClip: {fileID: 8300000, guid: 5a9d4099dc7e82f41b34b9914085aaf7, type: 3}
+  m_speedUpClip: {fileID: 8300000, guid: 4b63a14bd4c78754aa7f5150c08044fa, type: 3}
+  m_startEngineClip: {fileID: 8300000, guid: 21fdcd73ae6f9b84dbe73026f1a632fb, type: 3}
+  m_slowDownClip: {fileID: 8300000, guid: 3dbb563799ea37843926c85a4a799566, type: 3}
   m_downPressure: 15000
   m_motorForce: 9000
   m_brakeForce: 0
@@ -2908,6 +3012,7 @@ MonoBehaviour:
   m_maxSteerAngle: 30
   m_taillight: {fileID: 1930312713}
   m_VFXNitro: {fileID: 1042257254}
+  m_VFXSpeed: {fileID: 0}
   m_consumeNitroSpeed: 0.2
   m_refillNitroSpeed: 0.04
   nitroAmount: 1
@@ -3007,6 +3112,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &1667628638
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2631446968726358119}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6e16aca70e86f8443919b83f7a0b5f4f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3511023197635251203
 GameObject:
   m_ObjectHideFlags: 0

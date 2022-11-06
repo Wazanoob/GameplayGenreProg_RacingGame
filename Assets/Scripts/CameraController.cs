@@ -16,9 +16,9 @@ public class CameraController : MonoBehaviour
     [SerializeField] float cameraMaxTilt;
     [Range(0, 4)]
     [SerializeField] float cameraSpeed;
-    const float DISTANCE = 6;
+    private float DISTANCE = 6;
     float currentPan, currentTilt = 5;
-    const float tilt = 5;
+    float tilt = 5;
 
     //Collisions
     [Header("Collisions")]
@@ -56,6 +56,49 @@ public class CameraController : MonoBehaviour
 
     void LateUpdate()
     {
+        if (m_carController.nitroActivated)
+        {
+            tilt -= 0.005f;
+            tilt = Mathf.Clamp(tilt, 2, 5);
+
+            DISTANCE += Time.deltaTime * (2 + Time.deltaTime * 10);
+            DISTANCE = Mathf.Clamp(DISTANCE, 6, 10);
+        }else if(!m_carController.nitroActivated && !m_carController.IsBraking)
+        {
+            if (tilt > 5)
+            {
+                tilt -= 0.01f;
+                tilt = Mathf.Clamp(tilt, 5, tilt);
+            }else if(tilt < 5)
+            {
+                tilt += 0.01f;
+                tilt = Mathf.Clamp(tilt, tilt, 5);
+            }
+
+            if(DISTANCE > 6)
+            {
+                DISTANCE -= Time.deltaTime * 4;
+                DISTANCE = Mathf.Clamp(DISTANCE, 6, DISTANCE);
+            }
+            else if(DISTANCE <6)
+            {
+                DISTANCE += Time.deltaTime * 4;
+                DISTANCE = Mathf.Clamp(DISTANCE, DISTANCE, 6);
+            }
+
+        }
+        else if(m_carController.IsBraking)
+        {
+            tilt += 0.01f;
+            tilt = Mathf.Clamp(tilt, 5, 6);
+
+            DISTANCE -= Time.deltaTime;
+            DISTANCE = Mathf.Clamp(DISTANCE, 5f, DISTANCE);
+        }
+
+
+
+
         //Follow player
         Vector3 nextPosition = m_player.transform.position + Vector3.up * cameraHeight;
         transform.position = nextPosition;
@@ -63,7 +106,7 @@ public class CameraController : MonoBehaviour
 
         //Rotate around Player
         currentPan = m_player.transform.eulerAngles.y + m_carController.CurrentSteerAngle / 2;
-        currentTilt = tilt + m_carController.CurrentSteerAngle / 3;
+        currentTilt = m_carController.CurrentSteerAngle / 3;
 
         Vector3 nextRotation = new Vector3(transform.eulerAngles.x, currentPan, transform.eulerAngles.z);
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(nextRotation), Vector3.SqrMagnitude(transform.position - nextRotation) * (smoothLerpRotation) * Time.deltaTime);

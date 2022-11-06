@@ -2833,7 +2833,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 0
   MinDistance: 1
-  MaxDistance: 10
+  MaxDistance: 20
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -3000,7 +3000,7 @@ MonoBehaviour:
   m_slowDownClip: {fileID: 8300000, guid: 3dbb563799ea37843926c85a4a799566, type: 3}
   m_downPressure: 15000
   m_motorForce: 9000
-  m_brakeForce: 0
+  m_brakeForce: 10000
   m_frontLeftWheelCollider: {fileID: 1684508124}
   m_frontRightWheelCollider: {fileID: 1040221407}
   m_rearLeftWheelCollider: {fileID: 2045754458}
@@ -3016,6 +3016,7 @@ MonoBehaviour:
   m_consumeNitroSpeed: 0.2
   m_refillNitroSpeed: 0.04
   nitroAmount: 1
+  nitroActivated: 0
 --- !u!82 &1667628637
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3037,7 +3038,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 0
   MinDistance: 1
-  MaxDistance: 10
+  MaxDistance: 20
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0

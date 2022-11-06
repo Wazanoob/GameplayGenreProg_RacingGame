@@ -27,7 +27,7 @@ public class CarController : MonoBehaviour
     [SerializeField] private float m_downPressure;
     [SerializeField] private float m_motorForce;
     [SerializeField] private float m_brakeForce;
-    private float m_currentBreakForce;
+    private float m_currentBrakeForce;
 
     [SerializeField] private WheelCollider m_frontLeftWheelCollider;
     [SerializeField] private WheelCollider m_frontRightWheelCollider;
@@ -40,6 +40,7 @@ public class CarController : MonoBehaviour
     [SerializeField] private Transform m_rearRightWheelTransform;
 
     private bool m_isBraking;
+    public bool IsBraking { get { return m_isBraking; } }
 
     [Header("Steering")]
     [SerializeField] private float m_maxSteerAngle;
@@ -59,6 +60,7 @@ public class CarController : MonoBehaviour
     private const float COOLDOWNNITRO = 3.0f;
     private float m_cooldown;
     [HideInInspector] public float nitroAmount = 1.0f;
+    [HideInInspector] public bool nitroActivated = false;
     private bool m_onlyOnceStop = true;
     private bool m_onlyOnceNitro = false;
 
@@ -103,6 +105,7 @@ public class CarController : MonoBehaviour
         {
             if (!m_VFXNitro.activeInHierarchy)
             {
+                nitroActivated = true;
                 m_VFXNitro.SetActive(true);
                 m_VFXSpeed.SetActive(true);
             }
@@ -137,6 +140,7 @@ public class CarController : MonoBehaviour
         {
             if (m_VFXNitro.activeInHierarchy)
             {
+                nitroActivated = false;
                 m_cooldown = 0;
                 m_VFXNitro.SetActive(false);
                 m_VFXSpeed.SetActive(false);
@@ -186,23 +190,23 @@ public class CarController : MonoBehaviour
         if (m_isBraking)
         {
             m_taillight.SetBool("isBreaking", true);
-            m_currentBreakForce = m_brakeForce;
+            m_currentBrakeForce = m_brakeForce;
         }else if(m_verticalInput != 0)
         {
             m_audioController.SetBool("SpeedUp", true);
 
             m_taillight.SetBool("isBreaking", false);
-            m_currentBreakForce = 0.0f;
+            m_currentBrakeForce = 0.0f;
         }else if (m_verticalInput == 0)
         {
             m_audioController.SetBool("SpeedUp", false);
 
             m_taillight.SetBool("isBreaking", false);
-            m_currentBreakForce = m_brakeForce / 10;
+            m_currentBrakeForce = m_brakeForce;
         }
 
 
-        ApplyBreaking(m_currentBreakForce);
+        ApplyBreaking(m_currentBrakeForce);
     }
 
     void HandleSteering()
